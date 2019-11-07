@@ -384,14 +384,29 @@ public class ProjectListFragment extends RecyclerViewFragment<ProjectData> imple
 
 	@Override
 	public void onItemLongClick(final ProjectData item, CheckableVH holder) {
-		CharSequence[] items = new CharSequence[] {
-				getString(R.string.copy),
-				getString(R.string.delete),
-				getString(R.string.rename),
-				getString(R.string.show_details),
-				getString(R.string.upload_button),
-				getString(R.string.save_to_external_storage_button)
+		List<ProjectData> listOfItems = getItemList();
+		String otherFile = listOfItems.get(0).getName();
+		if (listOfItems.size() > 1) {
+			if ((item.getName()).equals(listOfItems.get(0).getName())) {
+				otherFile = listOfItems.get(1).getName();
+			}
+		}
+		int len = 6;
+		if (listOfItems.size() > 1){
+			len+=1;
+		}
+		CharSequence[] items = new CharSequence[len];
+		items[0] = getString(R.string.copy);
+		items[1] = getString(R.string.delete);
+		items[2] = getString(R.string.rename);
+		items[3] = getString(R.string.show_details);
+		items[4] = getString(R.string.upload_button);
+		items[5] = getString(R.string.save_to_external_storage_button);
+		if (len == 7){
+			items[6]= getString(R.string.merge_with) + " " + otherFile;
 		};
+
+
 		new AlertDialog.Builder(getContext())
 				.setTitle(item.getName())
 				.setItems(items, new DialogInterface.OnClickListener() {
@@ -424,6 +439,8 @@ public class ProjectListFragment extends RecyclerViewFragment<ProjectData> imple
 								break;
 							case 5:
 								exportProject(item);
+								break;
+							case 6:
 								break;
 							default:
 								dialog.dismiss();

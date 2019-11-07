@@ -326,6 +326,7 @@
     <string name="delete">Delete</string>
     <string name="rename">Rename</string>
     <string name="merge">Merge</string>
+    <string name="merge_with">Merge with</string>
     <string name="show_details">Show details</string>
     <string name="hide_details">Hide details</string>
 
